@@ -45,15 +45,15 @@ public class AddSparseMatrix {
         for (int i = 0; i < rows; i++) {
             String input = scanner.nextLine();
             Matcher colMatcher = COL_PATTERN.matcher(input);
-            List<int[]> triples = new ArrayList<>();
+            List<int[]> tuples = new ArrayList<>();
 
             while (colMatcher.find()) {
                 int col = Integer.parseInt(colMatcher.group(1));
                 int num = Integer.parseInt(colMatcher.group(2));
-                triples.add(new int[] { col, num, 0 });
+                tuples.add(new int[] { col, num });
             }
 
-            matrix.add(triples);
+            matrix.add(tuples);
         }
 
         return matrix;
@@ -66,7 +66,7 @@ public class AddSparseMatrix {
         for (int i = 0; i < rows; i++) {
             sb = new StringBuilder();
 
-            sb.append(i);
+            sb.append(i + 1);
             for (int[] tuple : result.get(i)) {
                 sb.append(String.format(" %d:%d", tuple[0], tuple[1]));
             }
