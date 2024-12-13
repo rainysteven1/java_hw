@@ -1,11 +1,7 @@
 package com.cuhksz.matrix;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
+import java.util.regex.*;
 
 /**
  * This class reads two matrices (of the same size) from the input, add the two
@@ -38,9 +34,6 @@ public class AddSparseMatrix {
         }
 
         add(matrices, result);
-        for (int i = 0; i < rows; i++) {
-            result.get(i).sort(Comparator.comparingInt(a -> a[0]));
-        }
         printMatrix(result, rows, cols);
 
         scanner.close();
@@ -92,16 +85,16 @@ public class AddSparseMatrix {
 
             int p1 = 0, p2 = 0;
             while (p1 < row1.size() || p2 < row2.size()) {
-                boolean isRow2Empty = p2 >= row2.size();
                 boolean isRow1Valid = p1 < row1.size();
+                boolean isRow2Valid = p2 < row2.size();
 
                 // Case 1: Take value from the first matrix
-                if (isRow2Empty || (isRow1Valid && row1.get(p1)[0] < row2.get(p2)[0])) {
+                if (!isRow2Valid || (isRow1Valid && row1.get(p1)[0] < row2.get(p2)[0])) {
                     resultRow.add(new int[] { row1.get(p1)[0], row1.get(p1)[1] });
                     p1++;
                 }
                 // Case 2: Take value from the second matrix
-                else if (p1 >= row1.size() || row1.get(p1)[0] > row2.get(p2)[0]) {
+                else if (!isRow1Valid || row1.get(p1)[0] > row2.get(p2)[0]) {
                     resultRow.add(new int[] { row2.get(p2)[0], row2.get(p2)[1] });
                     p2++;
                 }
